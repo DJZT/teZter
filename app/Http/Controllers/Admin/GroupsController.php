@@ -46,7 +46,7 @@ class GroupsController extends AdminController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show(Group $Group)
 	{
 		//
 	}
@@ -57,9 +57,10 @@ class GroupsController extends AdminController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Group $Group)
 	{
-		//
+		$this->data['Group'] = $Group;
+		return view('admin.groups.edit');
 	}
 
 	/**
@@ -68,9 +69,10 @@ class GroupsController extends AdminController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Requests\Admin\Groups\Update $request, Group $Group)
 	{
-		//
+        $Group->fill($request->all());
+		return redirect(route('admin.groups.list'))->with('success', "Группа $Group->title сохранена");
 	}
 
 	/**
