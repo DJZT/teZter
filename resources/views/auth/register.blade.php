@@ -22,9 +22,23 @@
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Name</label>
+							<label class="col-md-4 control-label">Имя</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="name" value="{{ old('name') }}">
+								<input type="text" class="form-control" name="first_name" value="{{ old('first_name') }}" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label">Фамилия</label>
+							<div class="col-md-6">
+								<input type="text" class="form-control" name="last_name" value="{{ old('last_name') }}" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label">Отчество</label>
+							<div class="col-md-6">
+								<input type="text" class="form-control" name="second_name" value="{{ old('second_name') }}">
 							</div>
 						</div>
 
@@ -50,9 +64,20 @@
 						</div>
 
 						<div class="form-group">
+							<label class="col-md-4 control-label">Группа</label>
+							<div class="col-md-6">
+								<select name="group_id" id="group_id">
+									@foreach($Groups as $Group)
+										<option value="{{$Group->id}}">{{$Group->title}}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
 								<button type="submit" class="btn btn-primary">
-									Register
+									Регистрация
 								</button>
 							</div>
 						</div>
