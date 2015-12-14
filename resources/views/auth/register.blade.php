@@ -66,8 +66,8 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">Группа</label>
 							<div class="col-md-6">
-								<select name="group_id" id="group_id">
-									@foreach($Groups as $Group)
+								<select class="form-control" name="group_id" id="group_id">
+									@foreach(\App\Models\Group::all() as $Group)
 										<option value="{{$Group->id}}">{{$Group->title}}</option>
 									@endforeach
 								</select>

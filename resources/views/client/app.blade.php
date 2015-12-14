@@ -7,9 +7,6 @@
 	<title>TeZteR</title>
 
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
-	{{--<link rel="stylesheet" href="/css/material.min.css">--}}
-	{{--<link rel="stylesheet" href="/css/roboto.min.css">--}}
-	{{--<link rel="stylesheet" href="/css/ripples.min.css">--}}
 
 	@yield('css')
 
@@ -18,15 +15,16 @@
 
 	@include('client.header')
 
-	@yield('content')
+			<div class="container">
+				@yield('content')
+			</div>
+
 
 	@include('client.footer')
 
 	<!-- Scripts -->
 	<script src="/js/jquery-1.11.3.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
-	<script src="/js/material.min.js"></script>
-	<script src="/js/ripples.min.js"></script>
 
 	@yield('js')
 </body>
