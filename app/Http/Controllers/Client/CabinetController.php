@@ -4,17 +4,20 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CabinetController extends Controller {
 
+	protected $data;
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function cabinet()
 	{
-		//
+		$this->data['User'] = Auth::user();
+		return view('client.cabinet.profile', $this->data);
 	}
 
 	/**

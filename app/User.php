@@ -44,4 +44,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $this->belongsTo(Group::class);
 	}
 
+	public function getName(){
+		return $this->last_name." ".$this->first_name." ".$this->second_name;
+	}
+
 }
