@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder {
 	{
 		Model::unguard();
 
+		\Illuminate\Support\Facades\DB::table('type_question')->insert([['title' => 'radio'],['title' => 'checkbox']]);
+
 		// $this->call('UserTableSeeder');
 	}
 

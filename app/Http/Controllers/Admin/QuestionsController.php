@@ -3,11 +3,15 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Models\Answer;
 use App\Models\Prototype;
+use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class PrototypesController extends AdminController {
+class QuestionsController extends Controller {
 
+	protected $data = [];
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -15,8 +19,7 @@ class PrototypesController extends AdminController {
 	 */
 	public function index()
 	{
-		$this->data['Prototypes'] = Prototype::all();
-		return view('admin.prototypes.list', $this->data);
+		//
 	}
 
 	/**
@@ -24,10 +27,10 @@ class PrototypesController extends AdminController {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create(Prototype $Prototype)
 	{
-
-		return view('admin.prototypes.create', $this->data);
+		$this->data['Prototype'] = $Prototype;
+		return view('admin.questions.create', $this->data);
 	}
 
 	/**
@@ -35,10 +38,25 @@ class PrototypesController extends AdminController {
 	 *
 	 * @return Response
 	 */
-	public function store(Requests\Admin\Prototypes\Store $request)
+	public function store(Requests\Admin\Questions\Store $request)
 	{
-		$Prototype = Prototype::create($request->input('prototype'));
-		return redirect(route('admin.prototypes.edit', $Prototype));
+		$Question = Question::create($request->input('question'));
+		if($request->has('question_image')){
+			// Загрузка изображения
+		}
+
+		foreach($request->input('answers') as $answer){
+			$Answer = Answer::create([
+				'text'	=> $answer['text'],
+				'right'	=> $answer['right'] or false
+			]);
+
+			if($answer['image']){
+				// Загрузка изображения
+			}
+		}
+
+		return redirect();
 	}
 
 	/**
@@ -58,10 +76,9 @@ class PrototypesController extends AdminController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit(Prototype $Prototype)
+	public function edit($id)
 	{
-		$this->data['Prototype']	= $Prototype;
-		return view('admin.prototypes.edit', $this->data);
+		//
 	}
 
 	/**
@@ -72,7 +89,7 @@ class PrototypesController extends AdminController {
 	 */
 	public function update($id)
 	{
-		//
+
 	}
 
 	/**

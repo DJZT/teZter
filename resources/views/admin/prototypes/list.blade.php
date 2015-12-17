@@ -20,7 +20,7 @@
                 <tr>
                     <th>#{{$Prototype->id}}</th>
                     <td>{{$Prototype->title}}</td>
-                    <td>{{$Prototype->answers()->count()}}</td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

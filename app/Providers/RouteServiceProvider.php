@@ -1,6 +1,9 @@
 <?php namespace App\Providers;
 
+use App\Models\Answer;
 use App\Models\Group;
+use App\Models\Prototype;
+use App\Models\Question;
 use App\Models\Role;
 use App\User;
 use Illuminate\Routing\Router;
@@ -27,9 +30,12 @@ class RouteServiceProvider extends ServiceProvider {
 	{
 		parent::boot($router);
 
-		$router->model('user', User::class);
-		$router->model('group', Group::class);
-		$router->model('role', Role::class);
+		$router->model('user', 		User::class);
+		$router->model('group', 	Group::class);
+		$router->model('role', 		Role::class);
+		$router->model('question', 	Question::class);
+		$router->model('prototype', Prototype::class);
+		$router->model('answer',	Answer::class);
 
 	}
 

@@ -59,6 +59,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
 		Route::get('edit/{prototype}',		['as' => 'admin.prototypes.edit', 	'uses' => 'PrototypesController@edit']);
 		Route::post('update/{prototype}',	['as' => 'admin.prototypes.update', 'uses' => 'PrototypesController@update']);
 		Route::get('destroy/{prototype}',	['as' => 'admin.prototypes.destroy','uses' => 'PrototypesController@destroy']);
+
+		Route::get('{prototype}/question/create' , 	['as' => 'admin.questions.create', 	'uses' => 'QuestionsController@create']);
+		Route::post('{prototype}/question/store' , 	['as' => 'admin.questions.store', 	'uses' => 'QuestionsController@store']);
+	});
+
+	Route::group(['prefix' => 'question'], function(){
+
+		Route::get('edit/{question}' , 				['as' => 'admin.questions.edit', 	'uses' => 'QuestionsController@edit']);
+		Route::post('update/{question}' , 			['as' => 'admin.questions.update', 	'uses' => 'QuestionsController@update']);
+		Route::post('delete/{question}' , 			['as' => 'admin.questions.delete', 	'uses' => 'QuestionsController@delete']);
 	});
 });
 

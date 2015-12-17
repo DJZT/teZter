@@ -18,6 +18,16 @@
 <body>
 
 	@include('client.header')
+	@if($errors->all())
+	<div class="alert alert-danger">
+		<ul>
+		@foreach($errors->all('<li>:message</li>') as $error)
+			{!! $error !!}
+		@endforeach
+		</ul>
+	</div>
+	@endif
+
 	<div class="container">
 		@yield('content')
 	</div>
@@ -25,10 +35,10 @@
 	@include('client.footer')
 
 	<!-- Scripts -->
-	<script src="/js/jquery-1.11.3.min.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
-	<script src="/js/material.min.js"></script>
-	<script src="/js/ripples.min.js"></script>
+	<script src="{{asset('js/jquery-1.11.3.min.js')}}"></script>
+	<script src="{{asset('js/bootstrap.min.js')}}"></script>
+	<script src="{{asset('js/material.min.js')}}"></script>
+	<script src="{{asset('js/ripples.min.js')}}"></script>
 
 	<script type="text/javascript">
 		$.ajaxSetup({

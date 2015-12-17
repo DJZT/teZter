@@ -15,7 +15,9 @@ class CreatePrototypesTable extends Migration {
 		Schema::create('prototypes', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('title', 1024);
+			$table->string('title', 2048);
+			$table->integer('count_questions')->default(0);
+			$table->integer('time')->default(10);
 			$table->timestamps();
 			$table->softDeletes();
 		});
