@@ -9,9 +9,16 @@ use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class QuestionsController extends Controller {
+class QuestionsController extends AdminController {
 
 	protected $data = [];
+
+	function __construct()
+	{
+
+		$this->data['breadcrumbs'][] = ['link' => route('admin.prototypes.list'), 'title' => 'Тесты'];
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -29,7 +36,10 @@ class QuestionsController extends Controller {
 	 */
 	public function create(Prototype $Prototype)
 	{
-		$this->data['Prototype'] = $Prototype;
+		$this->data['breadcrumbs'][]= ['link' => route('admin.prototypes.edit', $Prototype), 'title' => 'Редактирование '.$Prototype->title];
+		$this->data['breadcrumbs'][]= ['link' => false, 'title' => 'Новый вопрос'];
+		$this->data['Prototype'] 	= $Prototype;
+		$this->data['Types']		= DB::table('type_question')->get();
 		return view('admin.questions.create', $this->data);
 	}
 
@@ -38,9 +48,12 @@ class QuestionsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Requests\Admin\Questions\Store $request)
+	public function store(Requests\Admin\Questions\Store $request, Prototype $Prototype)
 	{
-		$Question = Question::create($request->input('question'));
+		$Question = new Question;
+		$Question->fill($request->input('question'));
+		$Question->prototype()->associate($Prototype);
+		$Question->save();
 		if($request->has('question_image')){
 			// Загрузка изображения
 		}
@@ -48,15 +61,17 @@ class QuestionsController extends Controller {
 		foreach($request->input('answers') as $answer){
 			$Answer = Answer::create([
 				'text'	=> $answer['text'],
-				'right'	=> $answer['right'] or false
+				'right'	=> isset($answer['right'])
 			]);
 
 			if($answer['image']){
 				// Загрузка изображения
 			}
+
+			$Question->answers()->save($Answer);
 		}
 
-		return redirect();
+		return redirect(route('admin.prototypes.edit', $Prototype));
 	}
 
 	/**
@@ -76,9 +91,10 @@ class QuestionsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Question $Question)
 	{
-		//
+		$this->data['Question']	= $Question;
+		return view('admin.questions.edit', $this->data);
 	}
 
 	/**
@@ -87,9 +103,9 @@ class QuestionsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request, Question $Question)
 	{
-
+		return redirect()->back();
 	}
 
 	/**
@@ -98,9 +114,15 @@ class QuestionsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Question $Question)
 	{
-		//
+		$Question->delete();
+		return redirect()->back();
+	}
+
+	public function restore(Question $Question){
+		$Question->restore();
+		return redirect()->back();
 	}
 
 }

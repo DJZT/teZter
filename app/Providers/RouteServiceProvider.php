@@ -5,6 +5,7 @@ use App\Models\Group;
 use App\Models\Prototype;
 use App\Models\Question;
 use App\Models\Role;
+use App\Models\Test;
 use App\User;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -35,6 +36,7 @@ class RouteServiceProvider extends ServiceProvider {
 		$router->model('role', 		Role::class);
 		$router->model('question', 	Question::class);
 		$router->model('prototype', Prototype::class);
+		$router->model('test', 		Test::class);
 		$router->model('answer',	Answer::class);
 
 	}

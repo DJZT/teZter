@@ -25,7 +25,7 @@ class Store extends Request {
 		$rules['question.text'] 		= 'required|min:5';
 		$rules['question.image'] 		= 'image|size:4096';
 		$rules['question.type'] 		= 'required';
-		$rules['question.coefficient'] 	= 'required|float';
+		$rules['question.coefficient'] 	= 'required|numeric';
 
 		$rules['answers'] =  'required';
 

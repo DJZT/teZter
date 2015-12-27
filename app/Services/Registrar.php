@@ -35,7 +35,7 @@ class Registrar implements RegistrarContract {
 			'second_name' 	=> $data['second_name'],
 			'email' 		=> $data['email'],
 			'password' 		=> bcrypt($data['password']),
-			'group_id'		=> $data['group_id'],
+			'group_id'		=> isset($data['group_id'])?$data['groupt_id']:0,
 //			'role_id'		=>	Role::where('dafault', true)->first()->id
 		]);
 	}

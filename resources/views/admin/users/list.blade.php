@@ -5,7 +5,7 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-lg-8">
-                    <a class="btn btn-primary btn-lg" href="{{route('admin.users.create')}}">Создать</a>
+                    <a class="btn btn-primary" href="{{route('admin.users.create')}}">Создать</a>
                 </div>
                 <div class="col-lg-4">
                     <input class="form-control" type="text" placeholder="Search">
@@ -13,25 +13,37 @@
             </div>
 
         </div>
-        <table class="table table-hover">
+        <table class="table table-hover table-link">
             <thead>
             <tr>
                 <th>ID</th>
                 <th>Фамилия</th>
                 <th>E-Mail</th>
                 <th>Группа</th>
+                <th>Роль</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
                 @foreach($Users as $User)
                     <tr>
-                        <td>{{$User->id}}</td>
+                        <th>#{{$User->id}}</th>
                         <td>{{$User->first_name}} {{$User->last_name}} {{$User->second_name}}</td>
                         <td>{{$User->email}}</td>
-                        <td{{$User->group->title}}></td>
-                        <td>{{$User->role->title}}</td>
-                        <td></td>
+                        <td>
+                            @if($Group = $User->group)
+                                <a href="{{route('admin.groups.edit', $Group)}}">{{$Group->title}}</a>
+                            @endif
+                        </td>
+                        <td>
+                            @if($Role = $User->role)
+                                {{$Role->title}}
+                            @endif
+                        </td>
+                        <td class="text-right">
+                            <a href="{{route('admin.users.edit', $User)}}" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <a class="btn btn-danger btn-xs" href="{{route('admin.users.delete', $User)}}" onclick="return confirm('Вы действительно хотите удалить пользователя {{$User->getName()}}?')"><span class="glyphicon glyphicon-remove"></span></a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

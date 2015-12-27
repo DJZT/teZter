@@ -94,4 +94,10 @@ class UsersController extends AdminController {
 		return redirect(route('admin.users.list'));
 	}
 
+	public function removeGroup(User $User){
+		$User->group_id = 0;
+		$User->save();
+		return redirect()->back();
+	}
+
 }

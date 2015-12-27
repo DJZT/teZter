@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Group;
+use App\User;
 use Illuminate\Http\Request;
 
 class GroupsController extends AdminController {
@@ -57,9 +58,10 @@ class GroupsController extends AdminController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Group $Group)
 	{
-		//
+		$this->data['Group'] = $Group;
+		return view('admin.groups.edit', $this->data);
 	}
 
 	/**
@@ -85,5 +87,7 @@ class GroupsController extends AdminController {
 		$Group->delete();
 		return redirect(route('admin.groups.list'));
 	}
+
+
 
 }

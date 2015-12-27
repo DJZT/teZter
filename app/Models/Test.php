@@ -11,11 +11,7 @@ class Test extends Model {
     }
 
     public function answers(){
-        return $this->hasMany(Answer::class);
-    }
-
-    public function answered(){
-        return [];
+        return $this->belongsToMany(Answer::class);
     }
 
     public function user(){

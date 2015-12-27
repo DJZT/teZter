@@ -22,8 +22,10 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Профиль</a></li>
-            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Тесты</a></li>
-            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Группа <span class="badge">{{$User->group->users()->count()}}</span></a></li>
+            <li role="presentation"><a href="#my_tests" aria-controls="my_tests" role="tab" data-toggle="tab">Тесты</a></li>
+            @if($Group = $User->group)
+                <li role="presentation"><a href="#my_group" aria-controls="my_group" role="tab" data-toggle="tab">Группа <span class="badge">{{$Group->users()->count()}}</span></a></li>
+            @endif
         </ul>
 
         <!-- Tab panes -->
@@ -31,21 +33,52 @@
             <div role="tabpanel" class="tab-pane active" id="home">
 
             </div>
-            <div role="tabpanel" class="tab-pane" id="profile">
-
-            </div>
-            <div role="tabpanel" class="tab-pane" id="messages">
-                <table class="table">
-                    <tbody>
-                    @foreach($User->group->users as $UserGroup)
-                        <tr class="@if($UserGroup->id == $User->id) {{"info"}} @endif">
-                            <td>{{$UserGroup->getName()}}</td>
-                            <td></td>
+            <div role="tabpanel" class="tab-pane" id="my_tests">
+                @if()
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Название</th>
+                            <th>Статус</th>
+                            <th>Дата прохождения</th>
+                            <th>Оценка</th>
+                            <th></th>
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach($User->tests as $Test)
+                                <tr>
+                                    <td>{{$Test->prototype->tittle}}</td>
+                                    <td>
+                                        @if($Test->data_ended && $Test->data_ended < \Carbon\Carbon::now())
+                                            <span class="label label-success"></span>
+                                        @elseif($Test->data_end)
+
+                                        @endif
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @endif
             </div>
+            @if($Group = $User->group)
+                <div role="tabpanel" class="tab-pane" id="my_group">
+                    <table class="table">
+                        <tbody>
+                        @foreach($Group->users as $UserGroup)
+                            <tr class="@if($UserGroup->id == $User->id) {{"info"}} @endif">
+                                <td>{{$UserGroup->getName()}}</td>
+                                <td></td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @endif
         </div>
 
     </div>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Prototype;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PrototypesController extends AdminController {
 
@@ -65,14 +66,15 @@ class PrototypesController extends AdminController {
 	}
 
 	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
+	 * @param Request $request
+	 * @param Prototype $Prototype
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
 	 */
-	public function update($id)
+	public function update(Request $request, Prototype $Prototype)
 	{
-		//
+		$Prototype->fill($request->input('prototype'));
+		$Prototype->save();
+		return redirect(route('admin.prototypes.edit', $Prototype));
 	}
 
 	/**
@@ -81,9 +83,21 @@ class PrototypesController extends AdminController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
-	{
-		//
+	public function destroy(Prototype $Prototype){
+		if($count = $Prototype->tests()->count()){
+			return redirect()->back()->withErrors('errors', 'На основе прототипа теста №'.$Prototype->id.' уже было пройдено '.$count.' тестов. Невозможно удалить данный прототип.');
+		}else{
+			$Prototype->delete();
+			$Prototype->save();
+			return redirect()->back();
+		}
+	}
+
+
+	public function restore(Prototype $Prototype){
+		$Prototype->restore();
+		$Prototype->save();
+		return redirect(route('admin.prototypes.list'));
 	}
 
 }

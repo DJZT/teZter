@@ -21,6 +21,7 @@ class CreateQuestionsTable extends Migration {
 			$table->string('type');
 			$table->float('coefficient');
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 
