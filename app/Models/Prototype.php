@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Prototype extends Model {
 
+
     use SoftDeletes;
 
 	protected $fillable = ['title', 'count_questions', 'time'];
