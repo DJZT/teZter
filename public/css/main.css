@@ -1,3 +1,8 @@
 .table-link tbody tr:hover{
   cursor: pointer;
 }
+
+.btn-no-margin{
+  margin-top: 0;
+  margin-bottom: 0;
+}

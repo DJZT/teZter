@@ -11,7 +11,7 @@ class Update extends Request {
 	 */
 	public function authorize()
 	{
-		return false;
+		return true;
 	}
 
 	/**
@@ -22,7 +22,9 @@ class Update extends Request {
 	public function rules()
 	{
 		return [
-			//
+			'first_name' 	=> 'required|min:2|max:32',
+			'last_name' 	=> 'required|min:2|max:32',
+			'second_name' 	=> 'min:2|max:32',
 		];
 	}
 

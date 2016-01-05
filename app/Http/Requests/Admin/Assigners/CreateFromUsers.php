@@ -1,8 +1,8 @@
-<?php namespace App\Http\Requests\Admin\Users;
+<?php namespace App\Http\Requests\Admin\Assigners;
 
 use App\Http\Requests\Request;
 
-class Create extends Request {
+class CreateFromUsers extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -11,7 +11,7 @@ class Create extends Request {
 	 */
 	public function authorize()
 	{
-		return false;
+		return true;
 	}
 
 	/**
@@ -22,9 +22,7 @@ class Create extends Request {
 	public function rules()
 	{
 		return [
-			'first_name' 	=> 'required|min:2|max:32',
-			'last_name' 	=> 'required|min:2|max:32',
-			'second_name' 	=> 'min:2|max:32',
+
 		];
 	}
 

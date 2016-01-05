@@ -1,9 +1,10 @@
-<?php namespace App\Http\Controllers\Client;
+<?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Models\Assigner;
+use App\Models\Prototype;
+use App\User;
 use Illuminate\Http\Request;
 
 class AssignersController extends Controller {
@@ -24,9 +25,11 @@ class AssignersController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create(Requests\Admin\Assigners\CreateFromUsers $request)
 	{
-		//
+		$this->data['Users'] 		= User::whereIn('id', $request->input('ids'))->get();
+		$this->data['Prototypes']	= Prototype::all();
+		return view('admin.assigners.create', $this->data);
 	}
 
 	/**
@@ -45,10 +48,9 @@ class AssignersController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show(Assigner $Assigner)
+	public function show($id)
 	{
-		$this->data['Assigner']	= $Assigner;
-		return view('client.assigner.show', $this->data);
+		//
 	}
 
 	/**

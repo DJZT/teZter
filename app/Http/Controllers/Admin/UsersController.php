@@ -66,6 +66,8 @@ class UsersController extends AdminController {
 	 */
 	public function edit(User $User)
 	{
+		$this->data['Roles'] 	= Role::all();
+		$this->data['Groups']	= Group::all();
 		$this->data['User']	= $User;
 		return view('admin.users.edit', $this->data);
 	}
@@ -79,6 +81,7 @@ class UsersController extends AdminController {
 	public function update(Requests\Admin\Users\Update $request, User $User)
 	{
 		$User->fill($request->all());
+		$User->save();
 		return redirect(route('admin.users.edit', $User));
 	}
 

@@ -27,15 +27,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
 		Route::get('delete/{user}', 	['as' => 'admin.users.delete', 		'uses' => "UsersController@delete"]);
 		Route::get('removeGroup/{user}',['as' => 'admin.groups.removeGroup','uses' => "GroupsController@removeGroup"]);
 
-		Route::post('store', 		['as' => 'admin.users.store', 	'uses' => "UsersController@store"]);
-		Route::post('update/{user}',['as' => 'admin.users.update', 	'uses' => "UsersController@update"]);
+		Route::post('store', 			['as' => 'admin.users.store', 	'uses' => "UsersController@store"]);
+		Route::post('update/{user}',	['as' => 'admin.users.update', 	'uses' => "UsersController@update"]);
 	});
 
 	Route::group(['prefix' => 'roles'], function(){
 		Route::get('list', 				['as' => 'admin.roles.list', 	'uses' => "RolesController@index"]);
 		Route::get('create', 			['as' => 'admin.roles.create', 	'uses' => "RolesController@create"]);
 		Route::get('edit/{role}',		['as' => 'admin.roles.edit', 	'uses' => "RolesController@edit"]);
-		Route::get('delete/{role}',		['as' => 'admin.roles.delete', 	'uses' => "RolesController@delete"]);
+		Route::get('delete/{role}',		['as' => 'admin.roles.delete', 	'uses' => "RolesController@destroy"]);
 
 		Route::post('store', 			['as' => 'admin.roles.store', 	'uses' => "RolesController@store"]);
 		Route::post('update/{role}',	['as' => 'admin.roles.update', 	'uses' => "RolesController@update"]);
@@ -45,7 +45,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
 		Route::get('list', 						['as' => 'admin.groups.list', 		'uses' => "GroupsController@index"]);
 		Route::get('create', 					['as' => 'admin.groups.create', 	'uses' => "GroupsController@create"]);
 		Route::get('edit/{group}',				['as' => 'admin.groups.edit', 		'uses' => "GroupsController@edit"]);
-		Route::get('delete/{group}',			['as' => 'admin.groups.delete', 	'uses' => "GroupsController@delete"]);
+		Route::get('delete/{group}',			['as' => 'admin.groups.delete', 	'uses' => "GroupsController@destroy"]);
 
 		Route::post('store', 			['as' => 'admin.groups.store', 	'uses' => "GroupsController@store"]);
 		Route::post('update/{group}',	['as' => 'admin.groups.update', 'uses' => "GroupsController@update"]);
@@ -69,6 +69,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
 		Route::get('edit/{question}', 				['as' => 'admin.questions.edit', 	'uses' => 'QuestionsController@edit']);
 		Route::post('update/{question}', 			['as' => 'admin.questions.update', 	'uses' => 'QuestionsController@update']);
 		Route::get('delete/{question}', 			['as' => 'admin.questions.delete', 	'uses' => 'QuestionsController@destroy']);
+	});
+
+	Route::group(['prefix' => 'assigners'], function(){
+		Route::get('create', 	['as' => 'admin.assigners.users', 'uses' => 'AssignersController@create']);
 	});
 });
 
@@ -96,9 +100,11 @@ Route::group(['namespace' => 'Client'], function(){
 	Route::get('cabinet/test/{test}/info', 	['as' => 'client.test.info',	'uses' => 'TestController@show']);
 
 	Route::group(['prefix' => 'test'], function(){
+		Route::get('start/{prototype}', 		['as' => 'client.test.start', 	'uses' => 'TestController@startTest']);
 		Route::get('{test}', 					['as' => 'client.test', 		'uses' => 'TestController@test']);
 		Route::post('{test}/answer/{question}', ['as' => 'client.test.answer', 	'uses' => 'TestController@answer']);
-
 	});
+
+	Route::get('cabinet/assigner/{assigner}', ['as' => 'client.assigner.show', 'uses' => 'AssignerController@show']);
 
 });

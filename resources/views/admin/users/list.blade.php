@@ -6,17 +6,20 @@
             <div class="row">
                 <div class="col-lg-8">
                     <a class="btn btn-primary" href="{{route('admin.users.create')}}">Создать</a>
+                    <input id="assigner_test" type="submit" class="btn btn-info" form="selects" value="Назначить тест">
                 </div>
                 <div class="col-lg-4">
                     <input class="form-control" type="text" placeholder="Search">
                 </div>
             </div>
-
         </div>
+        <form id="selects" action="{{route('admin.assigners.users')}}">
+            <input type="hidden" name="_token" value="{{csrf_token()}}">
+        </form>
         <table class="table table-hover table-link">
             <thead>
             <tr>
-                <th>ID</th>
+                <th colspan="2">ID</th>
                 <th>Фамилия</th>
                 <th>E-Mail</th>
                 <th>Группа</th>
@@ -27,6 +30,16 @@
             <tbody>
                 @foreach($Users as $User)
                     <tr>
+                        <th>
+                            <div class="checkbox" style="margin: 0;">
+                                <label>
+                                    <input class="selects" type="checkbox" form="selects" name="ids[]" value="{{$User->id}}">
+                                    <span class="checkbox-material">
+                                        <span class="check"></span>
+                                    </span>
+                                </label>
+                            </div>
+                        </th>
                         <th>#{{$User->id}}</th>
                         <td>{{$User->first_name}} {{$User->last_name}} {{$User->second_name}}</td>
                         <td>{{$User->email}}</td>
@@ -41,8 +54,8 @@
                             @endif
                         </td>
                         <td class="text-right">
-                            <a href="{{route('admin.users.edit', $User)}}" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
-                            <a class="btn btn-danger btn-xs" href="{{route('admin.users.delete', $User)}}" onclick="return confirm('Вы действительно хотите удалить пользователя {{$User->getName()}}?')"><span class="glyphicon glyphicon-remove"></span></a>
+                            <a href="{{route('admin.users.edit', $User)}}" class="btn btn-warning btn-xs btn-no-margin"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <a class="btn btn-danger btn-xs btn-no-margin" href="{{route('admin.users.delete', $User)}}" onclick="return confirm('Вы действительно хотите удалить пользователя {{$User->getName()}}?')"><span class="glyphicon glyphicon-remove"></span></a>
                         </td>
                     </tr>
                 @endforeach
@@ -93,4 +106,15 @@
             </div>
         </div>
     </div>
+@stop
+
+@section('js')
+    <script type="text/javascript">
+        $('input.selects').on('change', checkSelects);
+
+        function checkSelects(){
+            $('#assigner_test').prop('disabled', !$('input.selects:checked').length);
+        }
+        checkSelects();
+    </script>
 @stop

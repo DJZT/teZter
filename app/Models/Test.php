@@ -18,6 +18,10 @@ class Test extends Model {
         return $this->belongsTo(User::class);
     }
 
+    public function questions(){
+        $this->belongsToMany(Question::class);
+    }
+
     public function completed(){
         if(count($this->answered()) == count($this->answers)){
             $this->completed = true;
