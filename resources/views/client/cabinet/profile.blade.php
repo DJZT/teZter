@@ -18,6 +18,17 @@
         </div>
     </div>
 
+    @if($Assigners = $User->assigners)
+        <div class="alert alert-info">
+            У вас есть назначенные тесты для прохождения
+            <ul>
+                @foreach($Assigners as $Assigner)
+                    <li>Тема {{$Assigner->prototype->title}} <a href="{{route('client.assigner.show', $Assigner)}}">Пройти</a></li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
@@ -34,7 +45,7 @@
 
             </div>
             <div role="tabpanel" class="tab-pane" id="my_tests">
-                @if()
+                @if($Tests = $User->tests)
                     <table class="table">
                         <thead>
                         <tr>
@@ -46,7 +57,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach($User->tests as $Test)
+                            @foreach($Tests as $Test)
                                 <tr>
                                     <td>{{$Test->prototype->tittle}}</td>
                                     <td>

@@ -10,12 +10,12 @@
                 </div>
                 <div class="form-group">
                     <label for="">Длительность теста</label>
-                    <input class="form-control" type="number" name="prototype[title]" value="{{$Prototype->time}}">
+                    <input class="form-control" type="number" name="prototype[time]" value="{{$Prototype->time}}">
                     <span class="help-block">Укажите длительность в минутах</span>
                 </div>
                 <div class="form-group">
                     <label for="">Количество вопросов из общего числа</label>
-                    <input class="form-control" type="number" name="prototype[title]" value="{{$Prototype->title}}">
+                    <input class="form-control" type="number" name="prototype[count_questions]" value="{{$Prototype->count_questions}}">
                     <span class="help-block">Установите ноль "0" что бы использовались все вопросы</span>
                 </div>
                 <div class="form-group text-right">

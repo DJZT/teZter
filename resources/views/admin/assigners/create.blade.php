@@ -1,20 +1,25 @@
 @extends('admin.app')
 @section('content')
-    <div class="panel panel-default">
-        <table class="table">
-            <tbody>
-            @foreach($Users as $User)
-                <tr>
-                    <td>{{$User->getName()}}</td>
-                    <td></td>
-                </tr>
-            @endforeach
-            </tbody>
-            <tr class="panel-body">
-                <td class="form-group">
+    <form action="{{route('admin.assigners.store')}}" method="POST">
+        <input type="hidden" name="_token" value="{{csrf_token()}}">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <tbody>
+                    @foreach($Users as $User)
+                        <tr>
+                            <td>
+                                <input type="hidden" name="ids[]" value="{{$User->id}}">
+                                {{$User->getName()}}
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                <div class="form-group">
                     <label for="">Выберите тест</label>
                     @if($Prototypes->count())
-                        <select name="prototype_id" id="">
+                        <select class="form-control" name="prototype_id">
                             @foreach($Prototypes as $Prototype)
                                 <option value="{{$Prototype->id}}">{{$Prototype->title}}</option>
                             @endforeach
@@ -26,8 +31,15 @@
                             </div>
                         </div>
                     @endif
-                </td>
-            </tr>
-        </table>
-    </div>
+                </div>
+                <div class="form-group" style="position: relative;">
+                    <label for="">Дата действия</label>
+                    <input class="form-control datetime-picker" type="text">
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Создать">
+                </div>
+            </div>
+        </div>
+    </form>
 @stop

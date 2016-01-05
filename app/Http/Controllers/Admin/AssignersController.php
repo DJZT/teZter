@@ -3,9 +3,11 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Models\Assigner;
 use App\Models\Prototype;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AssignersController extends Controller {
 
@@ -17,7 +19,8 @@ class AssignersController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		$this->data['Assigners'] = Assigner::paginate(25);
+		return view('admin.assigners.list', $this->data);
 	}
 
 	/**
@@ -37,9 +40,16 @@ class AssignersController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Requests\Admin\Assigners\Store $request)
 	{
-		//
+		foreach($request->input('ids') as $id){
+			Assigner::create([
+				'prototype_id'	=> $request->input('prototype_id'),
+				'user_id'		=> $id
+			]);
+		}
+
+		return redirect(route('admin.assigners.list'));
 	}
 
 	/**
@@ -81,9 +91,10 @@ class AssignersController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Assigner $Assigner)
 	{
-		//
+		$Assigner->delete();
+		return redirect()->back();
 	}
 
 }

@@ -17,6 +17,7 @@
                 <li><a href="{{ route('admin.groups.list') }}">Группы</a></li>
                 <li><a href="{{ route('admin.roles.list') }}">Роли</a></li>
                 <li><a href="{{ route('admin.prototypes.list') }}">Тесты</a></li>
+                <li><a href="{{ route('admin.assigners.list') }}">Назначения</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @if (Auth::guest())

@@ -1,6 +1,7 @@
 <?php namespace App\Providers;
 
 use App\Models\Answer;
+use App\Models\Assigner;
 use App\Models\Group;
 use App\Models\Prototype;
 use App\Models\Question;
@@ -38,6 +39,7 @@ class RouteServiceProvider extends ServiceProvider {
 		$router->model('prototype', Prototype::class);
 		$router->model('test', 		Test::class);
 		$router->model('answer',	Answer::class);
+		$router->model('assigner',	Assigner::class);
 
 	}
 

@@ -72,7 +72,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
 	});
 
 	Route::group(['prefix' => 'assigners'], function(){
-		Route::get('create', 	['as' => 'admin.assigners.users', 'uses' => 'AssignersController@create']);
+		Route::get('', 					['as' => 'admin.assigners.list', 'uses' => 'AssignersController@index']);
+		Route::get('create', 			['as' => 'admin.assigners.users', 'uses' => 'AssignersController@create']);
+		Route::get('delete/{assigner}', ['as' => 'admin.assigners.delete', 'uses' => 'AssignersController@destroy']);
+		Route::post('store', 			['as' => 'admin.assigners.store', 'uses' => 'AssignersController@store']);
 	});
 });
 

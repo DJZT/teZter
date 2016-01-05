@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="{{asset('css/material.min.css')}}">
 	<link rel="stylesheet" href="{{asset('css/roboto.min.css')}}">
 	<link rel="stylesheet" href="{{asset('css/ripples.min.css')}}">
+	<link rel="stylesheet" href="{{asset('css/bootstrap-datetimepicker.min.css')}}">
 	<link rel="stylesheet" href="{{asset('css/main.css')}}">
 
 	@yield('css')
@@ -50,10 +51,13 @@
 	@include('client.footer')
 
 	<!-- Scripts -->
-	<script src="{{asset('js/jquery-1.11.3.min.js')}}"></script>
-	<script src="{{asset('js/bootstrap.min.js')}}"></script>
-	<script src="{{asset('js/material.min.js')}}"></script>
-	<script src="{{asset('js/ripples.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('js/jquery-1.11.3.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('js/material.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('js/ripples.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('js/moment.js')}}"></script>
+	<script type="text/javascript" src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('js/main.js')}}"></script>
 
 	<script type="text/javascript">
 		$.ajaxSetup({
