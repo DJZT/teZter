@@ -17,9 +17,9 @@ class UsersController extends AdminController {
 	 */
 	public function index(Request $request)
 	{
-		$Users = User::with('role');
+		$Users = User::with('role')->withTrashed();
 
-		$this->data['Users'] = User::paginate(3);
+		$this->data['Users'] = $Users->paginate(25);
 		return view('admin.users.list', $this->data);
 	}
 
@@ -95,6 +95,17 @@ class UsersController extends AdminController {
 	{
 		$User->delete();
 		return redirect(route('admin.users.list'));
+	}
+
+	/**
+	 * @param User $User
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
+	public function restore($id)
+	{
+		$User = User::withTrashed()->find($id);
+		$User->restore();
+		return redirect()->back();
 	}
 
 	public function removeGroup(User $User){

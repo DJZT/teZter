@@ -17,8 +17,11 @@
             </div>
         </div>
     </div>
+    <?php
+        $Assigners = $User->assigners()->where('date_end', '>=', \Carbon\Carbon::now())->where('test_id', 0)->get();
 
-    @if($Assigners = $User->assigners)
+    ?>
+    @if($Assigners->count())
         <div class="alert alert-info">
             У вас есть назначенные тесты для прохождения
             <ul>

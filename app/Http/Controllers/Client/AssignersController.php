@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Assigner;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AssignersController extends Controller {
@@ -45,7 +46,7 @@ class AssignersController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show(Assigner $Assigner)
+	public function show(Requests\Client\Assigners\Show $request, Assigner $Assigner)
 	{
 		$this->data['Assigner']	= $Assigner;
 		return view('client.assigner.show', $this->data);

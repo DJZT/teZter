@@ -34,7 +34,7 @@
                 </div>
                 <div class="form-group" style="position: relative;">
                     <label for="">Дата действия</label>
-                    <input class="form-control datetime-picker" type="text">
+                    <input class="form-control datetime-picker" type="text" name="date_end">
                 </div>
                 <div class="form-group">
                     <input class="btn btn-primary" type="submit" value="Создать">

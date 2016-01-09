@@ -2,6 +2,7 @@
 
 use App\Models\Prototype;
 use App\Models\Question;
+use App\User;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -53,6 +54,13 @@ class EventServiceProvider extends ServiceProvider {
 			// Restored all question for this
 			foreach ($Prototype->questions as $Question) {
 				$Question->restore();
+			}
+		});
+
+		User::deleting(function($User){
+			// Deleted all assigners this user
+			foreach($User->assigners as $Assigner){
+				$Assigner->delete();
 			}
 		});
 

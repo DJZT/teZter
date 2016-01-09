@@ -19,7 +19,6 @@ class CreateQuestionsTable extends Migration {
 			$table->text('text');
 			$table->string('image')->nullable();
 			$table->string('type');
-			$table->float('coefficient');
 			$table->timestamps();
 			$table->softDeletes();
 		});

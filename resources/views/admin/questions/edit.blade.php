@@ -1,12 +1,12 @@
 @extends('admin.app')
 @section('content')
     <div class="panel panel-default">
-        <form action="{{route('admin.questions.update', [$Prototype, $Question])}}" method="post">
+        <form action="{{route('admin.questions.update', $Question)}}" method="post">
             <input type="hidden" name="_token" value="{{csrf_token()}}">
             <div class="panel-body">
                 <div class="form-group">
                     <label for="">Текст вопроса</label>
-                    <textarea class="form-control" name="question[text]" rows="5">{{old('question.text')}}</textarea>
+                    <textarea class="form-control" name="question[text]" rows="5">{{old('question.text', $Question->text)}}</textarea>
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
@@ -15,13 +15,13 @@
                             <input class="btn btn-info" type="file" name="question[image]">
                         </div>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-6">
                         <div class="form-group">
                             <label for="">Тип ответов</label>
                             @foreach($Types as $Type)
                                 <div class="radio radio-primary">
                                     <label>
-                                        @if($Type->title == old('question.type', 'radio'))
+                                        @if($Type->title == old('question.type', $Question->type))
                                             <input type="radio" name="question[type]" value="{{$Type->title}}" checked><span class="circle"></span><span class="check"></span>
                                         @else
                                             <input type="radio" name="question[type]" value="{{$Type->title}}"><span class="circle"></span><span class="check"></span>
@@ -31,10 +31,6 @@
                                 </div>
                             @endforeach
                         </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <label for="">Коеффициент сложности</label>
-                        <input class="form-control" type="number" name="question[coefficient]" min="0" max="100" value="{{old('question.coefficient', 1)}}">
                     </div>
                 </div>
                 <hr/>
@@ -60,24 +56,25 @@
                         @foreach($Question->answers as $key => $Answer)
                             <tr class="warning" data-answer-item="{{$key}}">
                                 <td>
+                                    <input type="hidden" name="answers[{{$key}}][id]" value="{{$Answer->id}}">
                                     <input type="text" class="form-control" name="answers[{{$key}}][text]" value="{{$Answer->text}}">
                                 </td>
                                 <td>
                                     <a href="#"><img src="" alt=""></a><input type="file" class="btn btn-info btn-xs btn-block" name="answers[{{$key}}][image]">
                                 </td>
-                                <td>
+                                <td class="text-right">
                                     <div class="checkbox">
                                         <label>
-                                            @if(isset($Answer->right))
-                                                <input type="checkbox" class="form-control checkbox-right" name="answers[{{$key}}][right]" checked>
+                                            @if($Answer->right)
+                                                <input type="checkbox" class="form-control checkbox-right" name="answers[{{$key}}][right]" value="1" checked>
                                             @else
-                                                <input type="checkbox" class="form-control checkbox-right" name="answers[{{$key}}][right]">
+                                                <input type="checkbox" class="form-control checkbox-right" name="answers[{{$key}}][right]" value="1">
                                             @endif
                                             <span class="checkbox-material"><span class="check"></span></span>
                                         </label>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="text-right">
                                     <button type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></button>
                                 </td>
                             </tr>

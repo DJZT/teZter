@@ -24,7 +24,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
 		Route::get('list', 				['as' => 'admin.users.list', 		'uses' => "UsersController@index"]);
 		Route::get('create', 			['as' => 'admin.users.create', 		'uses' => "UsersController@create"]);
 		Route::get('edit/{user}',		['as' => 'admin.users.edit', 		'uses' => "UsersController@edit"]);
-		Route::get('delete/{user}', 	['as' => 'admin.users.delete', 		'uses' => "UsersController@delete"]);
+		Route::get('delete/{user}', 	['as' => 'admin.users.delete', 		'uses' => "UsersController@destroy"]);
+		Route::get('restore/{id}', 	['as' => 'admin.users.restore', 	'uses' => "UsersController@restore"]);
 		Route::get('removeGroup/{user}',['as' => 'admin.groups.removeGroup','uses' => "GroupsController@removeGroup"]);
 
 		Route::post('store', 			['as' => 'admin.users.store', 	'uses' => "UsersController@store"]);
@@ -103,11 +104,12 @@ Route::group(['namespace' => 'Client'], function(){
 	Route::get('cabinet/test/{test}/info', 	['as' => 'client.test.info',	'uses' => 'TestController@show']);
 
 	Route::group(['prefix' => 'test'], function(){
-		Route::get('start/{prototype}', 		['as' => 'client.test.start', 	'uses' => 'TestController@startTest']);
-		Route::get('{test}', 					['as' => 'client.test', 		'uses' => 'TestController@test']);
-		Route::post('{test}/answer/{question}', ['as' => 'client.test.answer', 	'uses' => 'TestController@answer']);
+		Route::get('start/prototype/{prototype}', 	['as' => 'client.test.prototype.start', 	'uses' => 'TestController@startTestByPrototype']);
+		Route::get('start/assigner/{assigner}', 	['as' => 'client.test.assigner.start', 		'uses' => 'TestController@startTestByAssigner']);
+		Route::get('{test}', 						['as' => 'client.test', 					'uses' => 'TestController@test']);
+		Route::post('{test}/answer/{question}', 	['as' => 'client.test.answer', 				'uses' => 'TestController@answer']);
 	});
 
-	Route::get('cabinet/assigner/{assigner}', ['as' => 'client.assigner.show', 'uses' => 'AssignerController@show']);
+	Route::get('cabinet/assigner/{assigner}', ['as' => 'client.assigner.show', 'uses' => 'AssignersController@show']);
 
 });

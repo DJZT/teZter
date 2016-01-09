@@ -42,26 +42,7 @@
 
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    @if($Tests = $User->tests)
-                        <table class="table">
-                            <tbody>
-                            @foreach($Tests as $Test)
-                                <tr>
-                                    <td><a href="{{route('admin.test.show')}}">{{$Test->prototype->title}}</a></td>
-                                    <td>{{$Test->prototype->questions()->count()}}</td>
-                                    <td>{{$Test->result()}}</td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                        <div class="text-center"><span class="text-muted">У пользователя нет пройденных тестов</span></div>
-                        <div class="text-center"><a href="{{route('admin.tests.assignment')}}" class="btn btn-info">Назначить тест</a></div>
-                    @endif
-                </div>
-            </div>
+
         </div>
     </div>
 @stop

@@ -1,5 +1,6 @@
 <?php namespace App;
 
+use App\Models\Assigner;
 use App\Models\Group;
 use App\Models\Role;
 use Illuminate\Auth\Authenticatable;
@@ -42,6 +43,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	public function group(){
 		return $this->belongsTo(Group::class);
+	}
+
+	public function assigners(){
+		return $this->hasMany(Assigner::class);
 	}
 
 	public function getName(){

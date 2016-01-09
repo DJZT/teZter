@@ -23,7 +23,7 @@
                     <th>#{{$Assigner->id}}</th>
                     <td>
                         @if($User = $Assigner->user)
-                            {{$User->getName()}}
+                            <a href="{{route('admin.users.edit', $User)}}">{{$User->getName()}}</a>
                         @endif
                     </td>
                     <td>{{$Assigner->date_end}}</td>

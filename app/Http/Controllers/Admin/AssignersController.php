@@ -45,7 +45,8 @@ class AssignersController extends Controller {
 		foreach($request->input('ids') as $id){
 			Assigner::create([
 				'prototype_id'	=> $request->input('prototype_id'),
-				'user_id'		=> $id
+				'user_id'		=> $id,
+				'date_end'		=> $request->input('date_end')
 			]);
 		}
 

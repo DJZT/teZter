@@ -94,6 +94,7 @@ class QuestionsController extends AdminController {
 	public function edit(Question $Question)
 	{
 		$this->data['Question']	= $Question;
+		$this->data['Types']	= DB::table('type_question')->get();
 		return view('admin.questions.edit', $this->data);
 	}
 
@@ -105,6 +106,18 @@ class QuestionsController extends AdminController {
 	 */
 	public function update(Request $request, Question $Question)
 	{
+		$Question->fill($request->input('question'));
+		$Question->save();
+
+		foreach ($request->input('answers') as $key => $answer) {
+			$Answer = Answer::find($answer['id']);
+			$Answer->fill([
+				'text'	=> $request->input('answers.'.$key.'.text'),
+				'right'	=> $request->input('answers.'.$key.'.right', false)
+			]);
+			$Answer->save();
+		}
+
 		return redirect()->back();
 	}
 

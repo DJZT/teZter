@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Log;
 
 class Test extends Model {
 
+    protected $fillable = ['user_id', 'prototype_id', 'assigner_id'];
+
 	public function prototype(){
         return $this->belongsTo(Prototype::class);
     }
@@ -18,8 +20,12 @@ class Test extends Model {
         return $this->belongsTo(User::class);
     }
 
+    public function assigner(){
+        return $this->hasOne(Assigner::class);
+    }
+
     public function questions(){
-        $this->belongsToMany(Question::class);
+        return $this->belongsToMany(Question::class);
     }
 
     public function completed(){
@@ -32,7 +38,31 @@ class Test extends Model {
     }
 
     public function result(){
-        return 0;
+
+        $result = 0;
+        foreach($this->questions as $Question){ // Перебираем вопросы
+            $countRight = $Question->answers()->where('right', true)->count();
+            $rangeRight = 1/$countRight;
+            $resultQuestion = 0;
+
+            foreach ($this->answers as $Answer) { // Перебираем ответы
+                if($Answer->question_id == $Question->id){
+                    if($Answer->right){
+                        $resultQuestion += $rangeRight;
+                    }else{
+                        $resultQuestion -= $rangeRight;
+                    }
+                }
+
+            }
+
+            if($resultQuestion < 0){
+                $resultQuestion = 0;
+            }
+            $result += $resultQuestion;
+        }
+
+        return $result/$this->questions()->count();
     }
 
 }

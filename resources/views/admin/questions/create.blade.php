@@ -15,7 +15,7 @@
                             <input class="btn btn-info" type="file" name="question[image]">
                         </div>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-6">
                         <div class="form-group">
                             <label for="">Тип ответов</label>
                             @foreach($Types as $Type)
@@ -31,10 +31,6 @@
                                 </div>
                             @endforeach
                         </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <label for="">Коеффициент сложности</label>
-                        <input class="form-control" type="number" name="question[coefficient]" min="0" max="100" value="{{old('question.coefficient', 1)}}">
                     </div>
                 </div>
                 <hr/>

@@ -15,7 +15,12 @@ class CreateAssignersTable extends Migration {
 		Schema::create('assigners', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->integer('user_id');
+			$table->integer('prototype_id');
+			$table->integer('test_id')->index()->default(0);
+			$table->timestamp('date_end');
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

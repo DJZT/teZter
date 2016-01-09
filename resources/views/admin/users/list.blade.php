@@ -29,16 +29,18 @@
             </thead>
             <tbody>
                 @foreach($Users as $User)
-                    <tr>
+                    <tr {{($User->deleted_at)? "class=text-muted": ""}}>
                         <th>
-                            <div class="checkbox" style="margin: 0;">
-                                <label>
-                                    <input class="selects" type="checkbox" form="selects" name="ids[]" value="{{$User->id}}">
+                            @if(!$User->deleted_at)
+                                <div class="checkbox" style="margin: 0;">
+                                    <label>
+                                        <input class="selects" type="checkbox" form="selects" name="ids[]" value="{{$User->id}}">
                                     <span class="checkbox-material">
                                         <span class="check"></span>
                                     </span>
-                                </label>
-                            </div>
+                                    </label>
+                                </div>
+                            @endif
                         </th>
                         <th>#{{$User->id}}</th>
                         <td>{{$User->first_name}} {{$User->last_name}} {{$User->second_name}}</td>
@@ -54,6 +56,9 @@
                             @endif
                         </td>
                         <td class="text-right">
+                            @if($User->deleted_at)
+                                <a class="btn btn-success btn-xs" href="{{route('admin.users.restore', $User)}}"><span class="glyphicon glyphicon-repeat"></span></a>
+                            @endif
                             <a href="{{route('admin.users.edit', $User)}}" class="btn btn-warning btn-xs btn-no-margin"><span class="glyphicon glyphicon-pencil"></span></a>
                             <a class="btn btn-danger btn-xs btn-no-margin" href="{{route('admin.users.delete', $User)}}" onclick="return confirm('Вы действительно хотите удалить пользователя {{$User->getName()}}?')"><span class="glyphicon glyphicon-remove"></span></a>
                         </td>
