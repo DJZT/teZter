@@ -53,7 +53,6 @@ class Test extends Model {
                         $resultQuestion -= $rangeRight;
                     }
                 }
-
             }
 
             if($resultQuestion < 0){
@@ -62,7 +61,7 @@ class Test extends Model {
             $result += $resultQuestion;
         }
 
-        return $result/$this->questions()->count();
+        return $result;
     }
 
 }

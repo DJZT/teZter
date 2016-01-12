@@ -16,7 +16,7 @@
                 <li><a href="{{ route('admin.users.list') }}">Пользователи</a></li>
                 <li><a href="{{ route('admin.groups.list') }}">Группы</a></li>
                 <li><a href="{{ route('admin.roles.list') }}">Роли</a></li>
-                <li><a href="{{ route('admin.prototypes.list') }}">Тесты</a></li>
+                <li><a href="{{ route('admin.prototypes.list') }}">Прототипы</a></li>
                 <li><a href="{{ route('admin.assigners.list') }}">Назначения</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -25,8 +25,9 @@
                     <li><a href="{{ url('/auth/register') }}">Register</a></li>
                 @else
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->getName() }} <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ route('client.cabinet') }}">Кабинет</a></li>
                             <li><a href="{{ url('/auth/logout') }}">Logout</a></li>
                         </ul>
                     </li>

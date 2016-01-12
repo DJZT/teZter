@@ -23,15 +23,14 @@ class Store extends Request {
 	{
 		$rules = [];
 		$rules['question.text'] 		= 'required|min:5';
-		$rules['question.image'] 		= 'image|size:4096';
+		$rules['image'] 				= 'image|max:4096';
 		$rules['question.type'] 		= 'required';
-		$rules['question.coefficient'] 	= 'required|numeric';
 
 		$rules['answers'] =  'required';
 
 		foreach(Request::input('answers') as $key => $item){
 			$rules['answers.'.$key.'.text']		= 'required';
-			$rules['answers.'.$key.'.image'] 	= 'image|size:4096"';
+			$rules['answers.'.$key.'.image'] 	= 'image|max:4096"';
 		}
 
 		return $rules;

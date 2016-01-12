@@ -9,7 +9,7 @@
                     <input id="assigner_test" type="submit" class="btn btn-info" form="selects" value="Назначить тест">
                 </div>
                 <div class="col-lg-4">
-                    <input class="form-control" type="text" placeholder="Search">
+                    {{--<input class="form-control" type="text" placeholder="Search">--}}
                 </div>
             </div>
         </div>

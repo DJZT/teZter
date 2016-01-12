@@ -8,6 +8,8 @@ use App\Models\Prototype;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class QuestionsController extends AdminController {
 
@@ -15,19 +17,9 @@ class QuestionsController extends AdminController {
 
 	function __construct()
 	{
-
-		$this->data['breadcrumbs'][] = ['link' => route('admin.prototypes.list'), 'title' => 'Тесты'];
+		$this->data['breadcrumbs'][]	= ['link' => route('admin.prototypes.list'), 'title' => 'Прототипы'];
 	}
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		//
-	}
 
 	/**
 	 * Show the form for creating a new resource.
@@ -36,7 +28,7 @@ class QuestionsController extends AdminController {
 	 */
 	public function create(Prototype $Prototype)
 	{
-		$this->data['breadcrumbs'][]= ['link' => route('admin.prototypes.edit', $Prototype), 'title' => 'Редактирование '.$Prototype->title];
+		$this->data['breadcrumbs'][]= ['link' => route('admin.prototypes.edit', $Prototype), 'title' => $Prototype->title];
 		$this->data['breadcrumbs'][]= ['link' => false, 'title' => 'Новый вопрос'];
 		$this->data['Prototype'] 	= $Prototype;
 		$this->data['Types']		= DB::table('type_question')->get();
@@ -54,9 +46,7 @@ class QuestionsController extends AdminController {
 		$Question->fill($request->input('question'));
 		$Question->prototype()->associate($Prototype);
 		$Question->save();
-		if($request->has('question_image')){
-			// Загрузка изображения
-		}
+
 
 		foreach($request->input('answers') as $answer){
 			$Answer = Answer::create([
@@ -75,17 +65,6 @@ class QuestionsController extends AdminController {
 	}
 
 	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-	/**
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param  int  $id
@@ -93,6 +72,10 @@ class QuestionsController extends AdminController {
 	 */
 	public function edit(Question $Question)
 	{
+
+		$this->data['breadcrumbs'][]	= ['link' => route('admin.prototypes.edit', $Question->prototype), 'title' => $Question->prototype->title];
+		$this->data['breadcrumbs'][]	= ['link' => false, 'title' => 'Вопрос #'.$Question->id];
+		$disk = Storage::disk('local');
 		$this->data['Question']	= $Question;
 		$this->data['Types']	= DB::table('type_question')->get();
 		return view('admin.questions.edit', $this->data);
@@ -104,19 +87,51 @@ class QuestionsController extends AdminController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Request $request, Question $Question)
+	public function update(Requests\Admin\Questions\Store $request, Question $Question)
 	{
 		$Question->fill($request->input('question'));
 		$Question->save();
 
+		if($request->hasFile('image') && $request->file('image')->isValid()){
+			$QuestionImage = $request->file('image');
+			$QuestionImage = $QuestionImage->move('upload\questions', $Question->id.'.'.$QuestionImage->getClientOriginalExtension());
+			$Question->image = $QuestionImage->getPathname();
+			$Question->save();
+		}elseif($request->has('question.delete_image') && $request->input('question.delete_image') == 'on'){
+			$Question->image = null;
+			$Question->save();
+		}
+
+		$IdsAnswers = [];
+
 		foreach ($request->input('answers') as $key => $answer) {
-			$Answer = Answer::find($answer['id']);
+			$Answer = Answer::findOrNew($request->input('answers.'.$key.'.id'));
 			$Answer->fill([
-				'text'	=> $request->input('answers.'.$key.'.text'),
-				'right'	=> $request->input('answers.'.$key.'.right', false)
+				'text'			=> $request->input('answers.'.$key.'.text'),
+				'right'			=> $request->input('answers.'.$key.'.right', false),
+				'question_id'	=> $Question->id
 			]);
 			$Answer->save();
+			$IdsAnswers[] = $Answer->id;
+			if($request->hasFile('answers.'.$key.'.image') && $request->file('answers.'.$key.'.image')->isValid()){
+				$AnswerFile = $request->file('answers.'.$key.'.image');
+				$AnswerFile = $AnswerFile->move('upload\answers', $Answer->id.'.'.$AnswerFile->getClientOriginalExtension());
+				$Answer->image = $AnswerFile->getPathname();
+				$Answer->save();
+			}elseif($request->has('answers.'.$key.'.delete_image') && $request->input('answers.'.$key.'.delete_image') == 'on'){
+				$Answer->image = null;
+				$Answer->save();
+			}
+
 		}
+
+		$AnswersForDeleting = $Question->answers()->whereNotIn('id', $IdsAnswers)->get();
+		if($AnswersForDeleting->count()){
+			foreach ($AnswersForDeleting as $Answer) {
+				$Answer->delete();
+			}
+		}
+
 
 		return redirect()->back();
 	}

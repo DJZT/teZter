@@ -19,7 +19,7 @@ Route::controllers([
 ]);
 
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin'], 'namespace' => 'Admin'], function(){
 	Route::group(['prefix' => 'users'], function(){
 		Route::get('list', 				['as' => 'admin.users.list', 		'uses' => "UsersController@index"]);
 		Route::get('create', 			['as' => 'admin.users.create', 		'uses' => "UsersController@create"]);

@@ -14,14 +14,44 @@ class DatabaseSeeder extends Seeder {
 	{
 		Model::unguard();
 
+		$Role1 = \App\Models\Role::create([
+			'title'		=> 'Пользователь',
+			'default'	=> true
+		]);
+
+		$Role2 = \App\Models\Role::create([
+			'title'		=> 'Администратор',
+			'admin'		=> true
+		]);
+
+		\App\Models\Group::create([
+			'title'	=> 'КИТ-10'
+		]);
+
+		$Group1 = \App\Models\Group::create([
+				'title'	=> 'КИТ-10'
+		]);
+
+		\App\Models\Group::create([
+				'title'	=> 'КИТ-20'
+		]);
+
+		$Group2 = \App\Models\Group::create([
+				'title'	=> 'КИТ-30'
+		]);
+
+		 \App\Models\Group::create([
+				'title'	=> 'КИТ-40'
+		]);
+
 		\App\User::create([
 			'first_name'	=> 'Stanisalv',
 			'last_name'		=> 'Pochepko',
 			'second_name'	=> 'Nikolaevich',
 			'email'			=> 'DJZT44@gmail.com',
 			'password'		=> bcrypt('123456'),
-			'group_id'		=> 0,
-			'role_id'		=> 0
+			'group_id'		=> $Group2->id,
+			'role_id'		=> $Role2->id
 		]);
 
 		\App\User::create([
@@ -30,8 +60,8 @@ class DatabaseSeeder extends Seeder {
 			'second_name'	=> 'Test second name',
 			'email'			=> 'test@test.com',
 			'password'		=> bcrypt('123456'),
-			'group_id'		=> 0,
-			'role_id'		=> 0
+			'group_id'		=> $Group1->id,
+			'role_id'		=> $Role1->id
 		]);
 
 		\Illuminate\Support\Facades\DB::table('type_question')->insert([['title' => 'radio'],['title' => 'checkbox']]);

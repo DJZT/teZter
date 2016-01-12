@@ -36,7 +36,7 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Профиль</a></li>
-            <li role="presentation"><a href="#my_tests" aria-controls="my_tests" role="tab" data-toggle="tab">Тесты</a></li>
+            <li role="presentation"><a href="#my_tests" aria-controls="my_tests" role="tab" data-toggle="tab">Тесты <span class="badge">{{$User->tests()->count()}}</span></a></li>
             @if($Group = $User->group)
                 <li role="presentation"><a href="#my_group" aria-controls="my_group" role="tab" data-toggle="tab">Группа <span class="badge">{{$Group->users()->count()}}</span></a></li>
             @endif
@@ -45,10 +45,10 @@
         <!-- Tab panes -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="home">
-
+                <div class="h2">Суммарный балл: <span class="label label-info">{{$User->range()}}</span></div>
             </div>
             <div role="tabpanel" class="tab-pane" id="my_tests">
-                @if($Tests = $User->tests)
+                @if($User->tests()->count())
                     <table class="table">
                         <thead>
                         <tr>
@@ -60,18 +60,22 @@
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach($Tests as $Test)
+                            @foreach($User->tests as $Test)
                                 <tr>
-                                    <td>{{$Test->prototype->tittle}}</td>
+                                    <td>{{$Test->prototype->title}}</td>
                                     <td>
-                                        @if($Test->data_ended && $Test->data_ended < \Carbon\Carbon::now())
-                                            <span class="label label-success"></span>
-                                        @elseif($Test->data_end)
-
+                                        @if($Test->date_completed)
+                                            <span class="label label-success">Выполнен {{$Test->date_completed}}</span>
+                                        @else
+                                            <span class="label label-success">Выполняется до {{$Test->created_at->addMinuts($Test->prototype->time)}}</span>
                                         @endif
                                     </td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>
+                                        {{$Test->created_at}}
+                                    </td>
+                                    <td>
+                                        {{$Test->range}}
+                                    </td>
                                     <td></td>
                                 </tr>
                             @endforeach
