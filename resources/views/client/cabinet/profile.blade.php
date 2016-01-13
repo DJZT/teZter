@@ -32,6 +32,12 @@
         </div>
     @endif
 
+    @if($CurrentTest = $User->tests()->where('date_completed', '<>', 'NULL')->first())
+        <div class="alert alert-danger">
+           В данный момент у вас запущен тест по теме {{$CurrentTest->prototype->title}} <a href="{{route('client.test', $CurrentTest)}}">Продолжить</a>
+        </div>
+    @endif
+
     <div>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
@@ -67,7 +73,7 @@
                                         @if($Test->date_completed)
                                             <span class="label label-success">Выполнен {{$Test->date_completed}}</span>
                                         @else
-                                            <span class="label label-success">Выполняется до {{$Test->created_at->addMinuts($Test->prototype->time)}}</span>
+                                            <span class="label label-danger">Выполняется до {{$Test->created_at->addMinutes($Test->prototype->time)}}</span>
                                         @endif
                                     </td>
                                     <td>

@@ -100,16 +100,21 @@ Route::group(['namespace' => 'Client'], function(){
 		Route::get('login', 	['as' => 'client.auth.login', 		'uses' => 'AuthController@loginForm']);
 	});
 
-	Route::get('', ['middleware' => 'auth', 'as' => 'client.cabinet', 		'uses' => 'CabinetController@cabinet']);
-	Route::get('cabinet/test/{test}/info', 	['as' => 'client.test.info',	'uses' => 'TestController@show']);
+	Route::group(['middleware' => 'auth'], function(){
+		Route::get('', ['as' => 'client.cabinet', 'uses' => 'CabinetController@cabinet']);
+		Route::group(['prefix' => 'cabinet'], function(){
+			Route::get('test/{test}/info', 		['as' => 'client.test.info',		'uses' => 'TestController@show']);
+			Route::get('assigner/{assigner}', 	['as' => 'client.assigner.show', 	'uses' => 'AssignersController@show']);
+		});
 
-	Route::group(['prefix' => 'test'], function(){
-		Route::get('start/prototype/{prototype}', 	['as' => 'client.test.prototype.start', 	'uses' => 'TestController@startTestByPrototype']);
-		Route::get('start/assigner/{assigner}', 	['as' => 'client.test.assigner.start', 		'uses' => 'TestController@startTestByAssigner']);
-		Route::get('{test}', 						['as' => 'client.test', 					'uses' => 'TestController@test']);
-		Route::post('{test}/answer/{question}', 	['as' => 'client.test.answer', 				'uses' => 'TestController@answer']);
+		Route::group(['prefix' => 'test'], function(){
+			Route::get('start/prototype/{prototype}', 	['as' => 'client.test.prototype.start', 	'uses' => 'TestController@startTestByPrototype']);
+			Route::get('start/assigner/{assigner}', 	['as' => 'client.test.assigner.start', 		'uses' => 'TestController@startTestByAssigner']);
+
+			Route::get('{test}', 						['as' => 'client.test', 					'uses' => 'TestController@test']);
+			Route::post('{test}/answer/{question}', 	['as' => 'client.test.answer', 				'uses' => 'TestController@answer']);
+		});
 	});
 
-	Route::get('cabinet/assigner/{assigner}', ['as' => 'client.assigner.show', 'uses' => 'AssignersController@show']);
 
 });
