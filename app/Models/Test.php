@@ -12,9 +12,9 @@ class Test extends Model {
         return $this->belongsTo(Prototype::class);
     }
 
-    public function answers(){
-        return $this->belongsToMany(Answer::class);
-    }
+//    public function answers(){
+//        return $this->belongsToMany(Answer::class);
+//    }
 
     public function user(){
         return $this->belongsTo(User::class);
