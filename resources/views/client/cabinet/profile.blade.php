@@ -60,21 +60,36 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <?php $sum = 0;?>
                             @foreach($Tests as $Test)
+                                <?php $sum += $Test->result();?>
                                 <tr>
-                                    <td>{{$Test->prototype->tittle}}</td>
+                                    <td>{{$Test->prototype->title}}</td>
                                     <td>
-                                        @if($Test->data_ended && $Test->data_ended < \Carbon\Carbon::now())
-                                            <span class="label label-success"></span>
-                                        @elseif($Test->data_end)
-
+                                        @if(is_null($Test->date_completed) && $Test->created_at->addMinutes($Test->prototype->time) < \Carbon\Carbon::now())
+                                            <span>Просроченно</span>
                                         @endif
                                     </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>
+                                        @if($Test->date_completed)
+                                            {{$Test->date_completed}}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        {{$Test->result()}}
+                                    </td>
+                                    <td><a href="{{route('client.test', $Test)}}" class="btn btn-link btn-sm"><span class="glyphicon glyphicon-eye-open"></span></a></td>
                                 </tr>
                             @endforeach
+                            <tfoot>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text"><b>{{$sum}}</b></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
                         </tbody>
                     </table>
                 @endif

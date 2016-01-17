@@ -19,7 +19,7 @@ class UsersController extends AdminController {
 	{
 		$Users = User::with('role')->withTrashed();
 
-		$this->data['Users'] = $Users->paginate(25);
+		$this->data['Users'] = $Users->paginate(15);
 		return view('admin.users.list', $this->data);
 	}
 
@@ -82,7 +82,7 @@ class UsersController extends AdminController {
 	{
 		$User->fill($request->all());
 		$User->save();
-		return redirect(route('admin.users.edit', $User));
+		return redirect(route('admin.users.list'));
 	}
 
 	/**
@@ -105,7 +105,7 @@ class UsersController extends AdminController {
 	{
 		$User = User::withTrashed()->find($id);
 		$User->restore();
-		return redirect()->back();
+		return redirect(route('admin.users.list'));
 	}
 
 	public function removeGroup(User $User){

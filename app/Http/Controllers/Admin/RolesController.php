@@ -63,7 +63,7 @@ class RolesController extends Controller {
 	{
 		$Role->fill($request->all());
 		$Role->save();
-		return redirect()->back();
+		return redirect(route('admin.roles.list'));
 	}
 
 	/**

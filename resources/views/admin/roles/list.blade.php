@@ -9,6 +9,8 @@
             <tr>
                 <th>#ID</th>
                 <th>Название</th>
+                <th>Админ</th>
+                <th>По умолч.</th>
                 <th>Пользователей</th>
                 <th></th>
             </tr>
@@ -18,6 +20,16 @@
                     <tr>
                         <th>#{{$Role->id}}</th>
                         <td>{{$Role->title}}</td>
+                        <td>
+                            @if($Role->admin)
+                                <span class="glyphicon glyphicon-ok"></span>
+                            @endif
+                        </td>
+                        <td>
+                            @if($Role->default)
+                                <span class="glyphicon glyphicon-ok"></span>
+                            @endif
+                        </td>
                         <td>{{$Role->users()->count()}}</td>
                         <td class="text-right">
                             <a href="{{route('admin.roles.edit', $Role)}}" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>

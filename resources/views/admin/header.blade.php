@@ -16,7 +16,8 @@
                 <li><a href="{{ route('admin.users.list') }}">Пользователи</a></li>
                 <li><a href="{{ route('admin.groups.list') }}">Группы</a></li>
                 <li><a href="{{ route('admin.roles.list') }}">Роли</a></li>
-                <li><a href="{{ route('admin.prototypes.list') }}">Тесты</a></li>
+                <li><a href="{{ route('admin.prototypes.list') }}">Прототипы</a></li>
+                <li><a href="{{ route('admin.tests.list') }}">Тесты</a></li>
                 <li><a href="{{ route('admin.assigners.list') }}">Назначения</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

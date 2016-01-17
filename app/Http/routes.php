@@ -19,13 +19,13 @@ Route::controllers([
 ]);
 
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admin'], function(){
 	Route::group(['prefix' => 'users'], function(){
 		Route::get('list', 				['as' => 'admin.users.list', 		'uses' => "UsersController@index"]);
 		Route::get('create', 			['as' => 'admin.users.create', 		'uses' => "UsersController@create"]);
 		Route::get('edit/{user}',		['as' => 'admin.users.edit', 		'uses' => "UsersController@edit"]);
 		Route::get('delete/{user}', 	['as' => 'admin.users.delete', 		'uses' => "UsersController@destroy"]);
-		Route::get('restore/{id}', 	['as' => 'admin.users.restore', 	'uses' => "UsersController@restore"]);
+		Route::get('restore/{id}', 		['as' => 'admin.users.restore', 	'uses' => "UsersController@restore"]);
 		Route::get('removeGroup/{user}',['as' => 'admin.groups.removeGroup','uses' => "GroupsController@removeGroup"]);
 
 		Route::post('store', 			['as' => 'admin.users.store', 	'uses' => "UsersController@store"]);
@@ -63,6 +63,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
 
 		Route::get('{prototype}/question/create', 	['as' => 'admin.questions.create', 	'uses' => 'QuestionsController@create']);
 		Route::post('{prototype}/question/store', 	['as' => 'admin.questions.store', 	'uses' => 'QuestionsController@store']);
+	});
+
+	Route::group(['prefix' => 'tests'], function(){
+		Route::get('list', 		['as' => 'admin.tests.list', 'uses' => 'TestsController@index']);
+		Route::get('{test}', 	['as' => 'admin.tests.show', 'uses' => 'TestsController@show']);
 	});
 
 	Route::group(['prefix' => 'questions'], function(){

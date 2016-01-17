@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Test;
+use App\User;
 use Illuminate\Http\Request;
 
 class TestsController extends AdminController {
@@ -16,7 +17,7 @@ class TestsController extends AdminController {
 	public function index()
 	{
 		$this->data['Tests'] = Test::all();
-		return view('admin.test.list', $this->data);
+		return view('admin.tests.list', $this->data);
 	}
 
 	/**
@@ -45,9 +46,9 @@ class TestsController extends AdminController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show(Test $Test)
 	{
-		//
+		return view('admin.test.show', compact($Test));
 	}
 
 	/**

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Role extends Model {
 
-	protected $fillable = ['title', 'default'];
+	protected $fillable = ['title', 'default', 'admin'];
 
     use SoftDeletes;
 

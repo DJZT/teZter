@@ -76,7 +76,7 @@
                                 <tbody>
                                 @foreach($Tests as $Test)
                                     <tr>
-                                        <td><a href="{{route('admin.test.show')}}">{{$Test->prototype->title}}</a></td>
+                                        {{--<td><a href="{{route('admin.test.show')}}">{{$Test->prototype->title}}</a></td>--}}
                                         <td>{{$Test->prototype->questions()->count()}}</td>
                                         <td>{{$Test->result()}}</td>
                                     </tr>

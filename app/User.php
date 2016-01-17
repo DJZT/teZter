@@ -3,6 +3,7 @@
 use App\Models\Assigner;
 use App\Models\Group;
 use App\Models\Role;
+use App\Models\Test;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -43,6 +44,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	public function group(){
 		return $this->belongsTo(Group::class);
+	}
+
+	public function tests(){
+		return $this->hasMany(Test::class);
 	}
 
 	public function assigners(){

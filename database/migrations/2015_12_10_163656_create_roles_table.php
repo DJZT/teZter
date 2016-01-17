@@ -17,6 +17,7 @@ class CreateRolesTable extends Migration {
 			$table->increments('id');
 			$table->string('title');
 			$table->boolean('default')->default(false);
+			$table->boolean('admin')->default(false);
 			$table->timestamps();
 			$table->softDeletes();
 		});

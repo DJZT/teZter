@@ -15,14 +15,22 @@
 
                 @foreach($Question->answers as $Answer)
                     <div class="form-group">
+                        <input  id="answer_{{$Answer->id}}" type="{{$Question->type}}" name="answers[]" value="{{$Answer->id}}">
                         <label for="answer_{{$Answer->id}}">{{$Answer->text}}</label>
-                        <input id="answer_{{$Answer->id}}" type="{{$Question->type}}" name="answers[]" value="{{$Answer->id}}">
                     </div>
                 @endforeach
                 <div class="form-group">
                     <input class="btn btn-success" type="submit" value="Ответить">
+                    {{$Test->prototype->time * 60 - \Carbon\Carbon::now()->diffInSeconds($Test->created_at)}}
                 </div>
             </form>
         </div>
     </div>
+@stop
+@section('js')
+    <script type="text/javascript">
+//        $('#timer').timeTo(100, function(){
+//            window.locales.href =
+//        });
+    </script>
 @stop

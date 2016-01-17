@@ -6,15 +6,17 @@ use Illuminate\Support\Facades\Log;
 
 class Test extends Model {
 
-    protected $fillable = ['user_id', 'prototype_id', 'assigner_id'];
+    protected $fillable = ['user_id', 'prototype_id', 'assigner_id', 'date_end'];
+
+    protected $dates = ['date_end'];
 
 	public function prototype(){
         return $this->belongsTo(Prototype::class);
     }
 
-//    public function answers(){
-//        return $this->belongsToMany(Answer::class);
-//    }
+    public function answers(){
+        return $this->belongsToMany(Answer::class);
+    }
 
     public function user(){
         return $this->belongsTo(User::class);

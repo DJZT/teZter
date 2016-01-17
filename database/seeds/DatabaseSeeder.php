@@ -20,8 +20,8 @@ class DatabaseSeeder extends Seeder {
 			'second_name'	=> 'Nikolaevich',
 			'email'			=> 'DJZT44@gmail.com',
 			'password'		=> bcrypt('123456'),
-			'group_id'		=> 0,
-			'role_id'		=> 0
+			'group_id'		=> \App\Models\Group::create(['title' => 'КИТ-30с'])->id,
+			'role_id'		=> \App\Models\Role::create(['title' => 'Admin', 'admin' => true])->id
 		]);
 
 		\App\User::create([
@@ -30,8 +30,8 @@ class DatabaseSeeder extends Seeder {
 			'second_name'	=> 'Test second name',
 			'email'			=> 'test@test.com',
 			'password'		=> bcrypt('123456'),
-			'group_id'		=> 0,
-			'role_id'		=> 0
+			'group_id'		=> \App\Models\Group::create(['title' => 'Test'])->id,
+			'role_id'		=> \App\Models\Role::create(['title' => 'User', 'default' => true])->id
 		]);
 
 		\Illuminate\Support\Facades\DB::table('type_question')->insert([['title' => 'radio'],['title' => 'checkbox']]);
@@ -97,6 +97,94 @@ class DatabaseSeeder extends Seeder {
 				'right'			=> true,
 				'question_id'	=> $Question->id
 		]);
+
+		$Question = \App\Models\Question::create([
+			'prototype_id'	=> $Prototype->id,
+			'text'			=> 'Какие типы данных из перечисленных есть в PHP?',
+			'type'			=> 'checkbox'
+		]);
+
+		$Answer = \App\Models\Answer::create([
+			'text'			=> 'Integer',
+			'right'			=> true,
+			'question_id'	=> $Question->id
+		]);
+		$Answer = \App\Models\Answer::create([
+			'text'			=> 'Float',
+			'right'			=> true,
+			'question_id'	=> $Question->id
+		]);
+		$Answer = \App\Models\Answer::create([
+			'text'			=> 'String',
+			'right'			=> true,
+			'question_id'	=> $Question->id
+		]);
+		$Answer = \App\Models\Answer::create([
+			'text'			=> 'Char',
+			'question_id'	=> $Question->id
+		]);
+		$Answer = \App\Models\Answer::create([
+			'text'			=> 'Array',
+			'right'			=> true,
+			'question_id'	=> $Question->id
+		]);
+		$Answer = \App\Models\Answer::create([
+			'text'			=> 'Callbacks / Callables',
+			'right'			=> true,
+			'question_id'	=> $Question->id
+		]);
+
+		$Question = \App\Models\Question::create([
+			'prototype_id'	=> $Prototype->id,
+			'text'			=> 'Какой оператор выполняет строгое сравнение?',
+			'type'			=> 'radio'
+		]);
+
+		$Answer = \App\Models\Answer::create([
+			'text'			=> '==',
+			'question_id'	=> $Question->id
+		]);
+		$Answer = \App\Models\Answer::create([
+			'text'			=> '===',
+			'right'			=> true,
+			'question_id'	=> $Question->id
+		]);
+		$Answer = \App\Models\Answer::create([
+			'text'			=> '&',
+			'question_id'	=> $Question->id
+		]);
+
+		$Question = \App\Models\Question::create([
+			'prototype_id'	=> $Prototype->id,
+			'text'			=> 'Какой оператор не правильный?',
+			'type'			=> 'radio'
+		]);
+
+		$Answer = \App\Models\Answer::create([
+			'text'			=> '$a and $b',
+			'question_id'	=> $Question->id
+		]);
+		$Answer = \App\Models\Answer::create([
+			'text'			=> '$a or $b',
+			'right'			=> true,
+			'question_id'	=> $Question->id
+		]);
+		$Answer = \App\Models\Answer::create([
+			'text'			=> '! $a',
+			'right'			=> true,
+			'question_id'	=> $Question->id
+		]);
+		$Answer = \App\Models\Answer::create([
+			'text'			=> '$a => $b',
+			'right'			=> true,
+			'question_id'	=> $Question->id
+		]);
+		$Answer = \App\Models\Answer::create([
+			'text'			=> '$a <= $b',
+			'right'			=> true,
+			'question_id'	=> $Question->id
+		]);
+
 
 
 		// $this->call('UserTableSeeder');

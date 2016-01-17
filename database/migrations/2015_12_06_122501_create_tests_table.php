@@ -17,8 +17,7 @@ class CreateTestsTable extends Migration {
 			$table->increments('id');
 			$table->integer('prototype_id')->index();
 			$table->integer('user_id')->index();
-			$table->dateTime('date_end');
-			$table->dateTime('date_completed');
+			$table->dateTime('date_completed')->nullable();
 			$table->float('range')->default(0);
 			$table->timestamps();
 			$table->softDeletes();
