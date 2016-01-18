@@ -145,6 +145,7 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 		'anlutro\LaravelSettings\ServiceProvider',
+		'App\Providers\ComposerServiceProvider'
 
 	],
 

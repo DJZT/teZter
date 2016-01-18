@@ -32,11 +32,17 @@
         </div>
     @endif
 
+    @if($CurrentTest = $User->tests()->where('date_completed', '<>', 'NULL')->first())
+        <div class="alert alert-danger">
+           В данный момент у вас запущен тест по теме {{$CurrentTest->prototype->title}} <a href="{{route('client.test', $CurrentTest)}}">Продолжить</a>
+        </div>
+    @endif
+
     <div>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Профиль</a></li>
-            <li role="presentation"><a href="#my_tests" aria-controls="my_tests" role="tab" data-toggle="tab">Тесты</a></li>
+            <li role="presentation"><a href="#my_tests" aria-controls="my_tests" role="tab" data-toggle="tab">Тесты <span class="badge">{{$User->tests()->count()}}</span></a></li>
             @if($Group = $User->group)
                 <li role="presentation"><a href="#my_group" aria-controls="my_group" role="tab" data-toggle="tab">Группа <span class="badge">{{$Group->users()->count()}}</span></a></li>
             @endif
@@ -45,10 +51,10 @@
         <!-- Tab panes -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="home">
-
+                <div class="h2">Суммарный балл: <span class="label label-info">{{$User->range()}}</span></div>
             </div>
             <div role="tabpanel" class="tab-pane" id="my_tests">
-                @if($Tests = $User->tests)
+                @if($User->tests()->count())
                     <table class="table">
                         <thead>
                         <tr>

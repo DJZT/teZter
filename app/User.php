@@ -58,4 +58,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $this->last_name." ".$this->first_name." ".$this->second_name;
 	}
 
+	public function range(){
+		$sum = 0;
+		foreach($this->tests as $Test){
+			$sum += $Test->range;
+		}
+		return $sum;
+	}
+
 }

@@ -20,7 +20,7 @@
                 <tr>
                     <th>#{{$Prototype->id}}</th>
                     <td>{{$Prototype->title}}</td>
-                    <td>{{$Prototype->questions()->count()}}</td>
+                    <td {{$Prototype->count_questions > $Prototype->questions()->count() ? "class=text-danger" : ""}}>{{$Prototype->count_questions}}/{{$Prototype->questions()->count()}}</td>
                     <td>{{$Prototype->time}} минут</td>
                     <td>{{$Prototype->tests()->count()}}</td>
                     <td class="text-right">

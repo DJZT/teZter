@@ -1,5 +1,6 @@
 <?php namespace App\Providers;
 
+use App\Models\Answer;
 use App\Models\Prototype;
 use App\Models\Question;
 use App\User;
@@ -61,6 +62,13 @@ class EventServiceProvider extends ServiceProvider {
 			// Deleted all assigners this user
 			foreach($User->assigners as $Assigner){
 				$Assigner->delete();
+			}
+		});
+
+		Answer::deleting(function($Answer){
+			// Deleting image
+			if($Answer->image){
+				unlink($Answer->image);
 			}
 		});
 

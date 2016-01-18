@@ -44,8 +44,8 @@
                                 @endif
                             </td>
                             <td class="text-right">
-                                <a href="{{route('admin.questions.edit', [$Prototype, $Question])}}" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
-                                <a href="{{route('admin.questions.delete',$Question)}}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></a>
+                                <a href="{{route('admin.questions.edit', $Question)}}" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
+                                <a href="{{route('admin.questions.delete', $Question)}}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></a>
                             </td>
                         </tr>
                     @endforeach

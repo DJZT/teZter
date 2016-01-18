@@ -1,6 +1,7 @@
 <?php namespace App\Http\Requests\Client\Assigners;
 
 use App\Http\Requests\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class Show extends Request {
@@ -13,7 +14,7 @@ class Show extends Request {
 	public function authorize()
 	{
 		$Assigner = $this->route('assigner');
-		return $Assigner->user_id == Auth::user()->id;
+		return ($Assigner->user_id == Auth::user()->id && $Assigner->date_end > Carbon::now() && !$Assigner->test)? true : false;
 	}
 
 	/**

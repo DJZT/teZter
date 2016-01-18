@@ -47,6 +47,8 @@ class PrototypesController extends AdminController {
 	 */
 	public function edit(Prototype $Prototype)
 	{
+		$this->data['breadcrumbs'][]	= ['link' => route('admin.prototypes.list'), 'title' => 'Прототипы'];
+		$this->data['breadcrumbs'][]	= ['link' => false, 'title' => $Prototype->title];
 		$this->data['Prototype']	= $Prototype;
 		return view('admin.prototypes.edit', $this->data);
 	}
