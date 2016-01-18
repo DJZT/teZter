@@ -48,7 +48,6 @@
 		@yield('content')
 	</div>
 
-	@include('client.footer')
 
 	<!-- Scripts -->
 	<script type="text/javascript" src="{{asset('js/jquery-1.11.3.min.js')}}"></script>

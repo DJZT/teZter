@@ -37,24 +37,6 @@ class AdminUsersTest extends TestCase {
         $this->assertResponseOk();
     }
 
-//    /**
-//     * A basic functional test example.
-//     *
-//     * @return void
-//     */
-//    public function testUserUpdate()
-//    {
-//        $UserAdmin = \App\User::whereHas('role', function($q){
-//            $q->where('admin', true);
-//        })->first();
-//
-//        $this->be($UserAdmin);
-//        $User = \App\User::first();
-//        $response = $this->call('POST', route('admin.users.update', $User), ['first_name' => 'New User name', 'last_name' => 'New last name', '_token' => csrf_token()]);
-//    echo $response;
-//        $this->assertRedirectedToRoute('admin.users.list');
-//    }
-
     /**
      * A basic functional test example.
      *

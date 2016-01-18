@@ -1,7 +1,6 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
 use App\Models\Group;
 use App\Models\Role;
@@ -108,6 +107,10 @@ class UsersController extends AdminController {
 		return redirect(route('admin.users.list'));
 	}
 
+	/**
+	 * @param User $User
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
 	public function removeGroup(User $User){
 		$User->group_id = 0;
 		$User->save();

@@ -50,8 +50,6 @@ class TestController extends Controller {
 	public function answer(Request $request, Test $Test, Question $Question)
 	{
 
-//		print_r($Test);die();
-
 		foreach ($request->input('answers') as $answer) {
 			$Answer = Answer::find($answer);
 			$Test->answers()->attach($Answer);

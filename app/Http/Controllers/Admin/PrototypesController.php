@@ -1,11 +1,9 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
 use App\Models\Prototype;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class PrototypesController extends AdminController {
 
@@ -27,7 +25,6 @@ class PrototypesController extends AdminController {
 	 */
 	public function create()
 	{
-
 		return view('admin.prototypes.create', $this->data);
 	}
 
@@ -40,17 +37,6 @@ class PrototypesController extends AdminController {
 	{
 		$Prototype = Prototype::create($request->input('prototype'));
 		return redirect(route('admin.prototypes.edit', $Prototype));
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
 	}
 
 	/**
@@ -93,7 +79,10 @@ class PrototypesController extends AdminController {
 		}
 	}
 
-
+	/**
+	 * @param Prototype $Prototype
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 */
 	public function restore(Prototype $Prototype){
 		$Prototype->restore();
 		$Prototype->save();

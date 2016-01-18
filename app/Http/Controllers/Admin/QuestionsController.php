@@ -15,18 +15,7 @@ class QuestionsController extends AdminController {
 
 	function __construct()
 	{
-
 		$this->data['breadcrumbs'][] = ['link' => route('admin.prototypes.list'), 'title' => 'Тесты'];
-	}
-
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		//
 	}
 
 	/**
@@ -74,16 +63,6 @@ class QuestionsController extends AdminController {
 		return redirect(route('admin.prototypes.edit', $Prototype));
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -133,6 +112,10 @@ class QuestionsController extends AdminController {
 		return redirect()->back();
 	}
 
+	/**
+	 * @param Question $Question
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
 	public function restore(Question $Question){
 		$Question->restore();
 		return redirect()->back();

@@ -18,7 +18,6 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admin'], function(){
 	Route::group(['prefix' => 'users'], function(){
 		Route::get('list', 				['as' => 'admin.users.list', 		'uses' => "UsersController@index"]);
@@ -89,13 +88,9 @@ Route::group(['prefix' => 'rest', 'namespace' => 'REST'], function(){
 	Route::group(['prefix' => 'users'], function(){
 		Route::get('', 'UsersController@index');
 		Route::get('{user}', 'UsersController@show');
-
 		Route::post('', 'UsersController@store');
-
 		Route::put('{user}', 'UsersController@update');
-
 		Route::delete('{user}', 'UsersController@destroy');
-
 	});
 });
 

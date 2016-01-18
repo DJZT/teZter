@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>TeZteR</title>
 
-	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
 
 	@yield('css')
 
@@ -15,16 +15,13 @@
 
 	@include('client.header')
 
-			<div class="container">
-				@yield('content')
-			</div>
-
-
-	@include('client.footer')
+	<div class="container">
+		@yield('content')
+	</div>
 
 	<!-- Scripts -->
-	<script src="/js/jquery-1.11.3.min.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
+	<script src="{{asset('js/jquery-1.11.3.min.js')}}"></script>
+	<script src="{{asset('js/bootstrap.min.js')}}"></script>
 
 	@yield('js')
 </body>
