@@ -48,7 +48,7 @@ class TestsController extends AdminController {
 	 */
 	public function show(Test $Test)
 	{
-		return view('admin.test.show', compact($Test));
+		return view('admin.tests.show', compact('Test'));
 	}
 
 	/**

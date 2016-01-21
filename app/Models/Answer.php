@@ -22,4 +22,8 @@ class Answer extends Model {
 		}
 
 	}
+
+    public function scopeRight($q){
+        return $q->where('right', true);
+    }
 }

@@ -13,6 +13,7 @@
                         <div class="form-group">
                             <label for="">Изображение</label>
                             <input class="btn btn-info" type="file" name="image">
+                            {{--TODO не работает --}}
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -74,7 +75,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></button>
+                                        <button type="button" class="btn btn-danger btn-xs btn-remove-answer"><span class="glyphicon glyphicon-remove"></span></button>
                                     </td>
                                 </tr>
                             @endforeach

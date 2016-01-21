@@ -46,18 +46,34 @@ class QuestionsController extends AdminController {
 		$Question->prototype()->associate($Prototype);
 		$Question->save();
 
+		if($request->hasFile('image') && $request->file('image')->isValid()){
+			$QuestionImage = $request->file('image');
+			$QuestionImage = $QuestionImage->move('upload\questions', $Question->id.'.'.$QuestionImage->getClientOriginalExtension());
+			$Question->image = $QuestionImage->getPathname();
+			$Question->save();
+		}elseif($request->has('question.delete_image') && $request->input('question.delete_image') == 'on'){
+			$Question->image = null;
+			$Question->save();
+		}
 
-		foreach($request->input('answers') as $answer){
+
+		foreach($request->input('answers') as $key => $answer){
 			$Answer = Answer::create([
 				'text'	=> $answer['text'],
 				'right'	=> isset($answer['right'])
 			]);
 
-			if($answer['image']){
-				// Загрузка изображения
-			}
-
 			$Question->answers()->save($Answer);
+
+			if($request->hasFile('answers.'.$key.'.image') && $request->file('answers.'.$key.'.image')->isValid()){
+				$AnswerFile = $request->file('answers.'.$key.'.image');
+				$AnswerFile = $AnswerFile->move('upload\answers', $Answer->id.'.'.$AnswerFile->getClientOriginalExtension());
+				$Answer->image = $AnswerFile->getPathname();
+				$Answer->save();
+			}elseif($request->has('answers.'.$key.'.delete_image') && $request->input('answers.'.$key.'.delete_image') == 'on'){
+				$Answer->image = null;
+				$Answer->save();
+			}
 		}
 
 		return redirect(route('admin.prototypes.edit', $Prototype));

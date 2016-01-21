@@ -8,7 +8,7 @@ class Test extends Model {
 
     protected $fillable = ['user_id', 'prototype_id', 'assigner_id', 'date_end'];
 
-    protected $dates = ['date_end'];
+    protected $dates = ['date_end', 'date_completed'];
 
 	public function prototype(){
         return $this->belongsTo(Prototype::class);

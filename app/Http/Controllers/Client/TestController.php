@@ -31,7 +31,7 @@ class TestController extends Controller {
 			$questions_ids[] = $Answer->question_id;
 		}
 
-		if($Question = $Test->questions()->whereNotIn('id', $questions_ids)->first()){
+		if($Question = $Test->questions()->notAnswered($Test)->first()){
 			$this->data['Question'] = $Question;
 		}else{
 			$Test->date_completed = Carbon::now();
@@ -49,12 +49,10 @@ class TestController extends Controller {
 	 */
 	public function answer(Request $request, Test $Test, Question $Question)
 	{
-
-		foreach ($request->input('answers') as $answer) {
+		foreach ($request->input('answers', []) as $answer) {
 			$Answer = Answer::find($answer);
 			$Test->answers()->attach($Answer);
 		}
-
 		return redirect(route('client.test', $Test));
 	}
 

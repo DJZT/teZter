@@ -32,7 +32,7 @@
         </div>
     @endif
 
-    @if($CurrentTest = $User->tests()->where('date_completed', '<>', 'NULL')->first())
+    @if($CurrentTest = $User->tests()->where('date_completed', 'NULL')->first())
         <div class="alert alert-danger">
            В данный момент у вас запущен тест по теме {{$CurrentTest->prototype->title}} <a href="{{route('client.test', $CurrentTest)}}">Продолжить</a>
         </div>
@@ -54,7 +54,7 @@
                 <div class="h2">Суммарный балл: <span class="label label-info">{{$User->range()}}</span></div>
             </div>
             <div role="tabpanel" class="tab-pane" id="my_tests">
-                @if($User->tests()->count())
+                @if($Tests = $User->tests)
                     <table class="table">
                         <thead>
                         <tr>

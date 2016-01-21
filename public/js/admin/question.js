@@ -4,6 +4,7 @@
     $('body')
         .on('change', '.checkbox-right', check_submit)
         .on('click', '.btn-remove-answer', function(event){
+            console.log('action remove answer');
             var $el = $(event.currentTarget);
             $el.closest('tr').remove();
             check_submit();
@@ -39,7 +40,7 @@ function addTrAnswer(){
     var $btndel = $('<td/>')
         .addClass('text-right')
         .css('width',40)
-        .append($('<button/>',{'type':'button','name':'answers['+(count)+'][right]'}).addClass('btn btn-danger btn-xs').append($('<span/>').addClass('glyphicon glyphicon-remove')));
+        .append($('<button/>',{'type':'button','name':'answers['+(count)+'][right]'}).addClass('btn btn-danger btn-xs btn-remove-answer').append($('<span/>').addClass('glyphicon glyphicon-remove')));
 
     var $tr = $('<tr/>').attr('data-answer-item', count).append($text,$image,$right,$btndel);
     $('#answers').append($tr);
