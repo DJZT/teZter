@@ -5,6 +5,8 @@
         <div class="panel-heading р4">Создание пользователя</div>
         <div class="panel-body">
             <form action="{{route('admin.users.store')}}" method="POST">
+                <input type="hidden" name="_token" value="{{csrf_token()}}">
+                {{--// TODO проверить везде токены--}}
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="form-group">
@@ -12,6 +14,7 @@
                             <input id="first_name" class="form-control" type="text" name="first_name" required>
                         </div>
                     </div>
+                    {{--TODO Поставить звездочки --}}
                     <div class="col-lg-4 ">
                         <div class="form-group">
                             <label class="control-label" for="last_name">Фамилия</label>

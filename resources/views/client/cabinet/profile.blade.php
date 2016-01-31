@@ -73,7 +73,7 @@
                                     <td>{{$Test->prototype->title}}</td>
                                     <td>
                                         @if(is_null($Test->date_completed) && $Test->created_at->addMinutes($Test->prototype->time) < \Carbon\Carbon::now())
-                                            <span>Просроченно</span>
+                                            <span class="">Просроченно</span> // TODO Пройден, просрочен, в процессе, назначен
                                         @endif
                                     </td>
                                     <td>

@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder {
 	{
 		Model::unguard();
 
+
 		$Role1 = \App\Models\Role::create([
 			'title'		=> 'Пользователь',
 			'default'	=> true
@@ -45,11 +46,11 @@ class DatabaseSeeder extends Seeder {
 		]);
 
 		\App\User::create([
-			'first_name'	=> 'Stanisalv',
-			'last_name'		=> 'Pochepko',
-			'second_name'	=> 'Nikolaevich',
-			'email'			=> 'DJZT44@gmail.com',
-			'password'		=> bcrypt('123456'),
+			'first_name'	=> 'Admin',
+			'last_name'		=> 'Admin',
+			'second_name'	=> 'Admin',
+			'email'			=> 'admin@admin.com',
+			'password'		=> bcrypt('admin'),
 			'group_id'		=> $Group2->id,
 			'role_id'		=> $Role2->id
 		]);

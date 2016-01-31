@@ -14,6 +14,7 @@
                             <label for="">Изображение</label>
                             <input class="btn btn-info" type="file" name="image">
                             {{--TODO не работает --}}
+                            {{--TODO алгоритм выбора количесва вопросов не работает--}}
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -60,7 +61,7 @@
                                         <input type="text" class="form-control" name="answers[{{$key}}][text]" value="{{$oldAnswer['text']}}">
                                     </td>
                                     <td>
-                                        <input type="file" class="btn btn-info btn-xs btn-block" name="answers[{{$key}}][image]" value="{{$oldAnswer['image']}}">
+                                        <input type="file" class="btn btn-info btn-xs btn-block" name="answers[{{$key}}][image]" value="{{isset($oldAnswer['image'])? $oldAnswer['image'] : "" }}">
                                     </td>
                                     <td>
                                         <div class="checkbox">

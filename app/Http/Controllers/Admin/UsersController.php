@@ -41,10 +41,15 @@ class UsersController extends AdminController {
 	 */
 	public function store(Requests\Admin\Users\Create $request)
 	{
-		$User = User::create($request->all());
-		return redirect(route('admin.users.show', $User));
-	}
+        $pas = $request->input('password');
 
+
+		$User = User::create($request->all());
+        $User->password = bcrypt($pas);
+        $User->save();
+		return redirect(route('admin.users.edit', $User));
+	}
+// Локализировать календарь
 	/**
 	 * Display the specified resource.
 	 *

@@ -25,6 +25,9 @@ class Create extends Request {
 			'first_name' 	=> 'required|min:2|max:32',
 			'last_name' 	=> 'required|min:2|max:32',
 			'second_name' 	=> 'min:2|max:32',
+            'email'         => 'required|email',
+            'password'      => 'required',
+            'confirm_password' => 'same:password'
 		];
 	}
 
