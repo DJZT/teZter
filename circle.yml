@@ -1,0 +1,12 @@
+machine:
+  php:
+    version: 5.5.9
+  services:
+    - mysql
+  checkout:
+    post:
+      - cp .env.travis .env
+      - mysql -e 'create database tezter_travis;'
+      - composer self-update
+      - composer install --no-interaction
+      - php artisan migrate --seed
